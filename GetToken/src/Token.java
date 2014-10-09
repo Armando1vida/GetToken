@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -19,10 +20,16 @@ public class Token {
     private String matchValue;
     private Integer begin = 0;
 
+    ArrayList ListToken = new ArrayList();
+
+    public static final int num = 0;
+    public static final int string = 1;
+    public static final int operador = 2;
+
     public Token(String cad) {
         this.cad = cad;
         this.haveToken = true;
-        this.matchValue = this.matchSring;
+        this.matchValue = this.matchInt;
     }
 
     /**
@@ -54,21 +61,23 @@ public class Token {
                 } else {
                     if (this.getMatchValue().equals(this.getMatchSring())) {
                         this.setMatchValue(this.getMatchInt());
+                        ListToken.add(new Nodo(strreturn, 1));
                         return strreturn;
                     }
                     if (this.getMatchValue().equals(this.getMatchInt())) {
                         this.setMatchValue(this.getMatchOperacion());
+                        ListToken.add(new Nodo(strreturn, 0));
                         return strreturn;
                     }
                     if (this.getMatchValue().equals(this.getMatchOperacion())) {
                         this.setMatchValue(this.getMatchSring());
+                        ListToken.add(new Nodo(strreturn, 2));
                         return strreturn;
                     }
                 }
 
             } else {
                 this.setBegin(x + 1);
-
                 return strreturn;
 
             }
@@ -160,6 +169,23 @@ public class Token {
      */
     public void setBegin(Integer begin) {
         this.begin = begin;
+    }
+
+    /**
+     * @return the begin
+     */
+    public Integer getValuen() {
+        return begin;
+    }
+
+    public void imprimir() {
+        for (int j = 0; j < ListToken.size(); j++) {//ahora imprimiremos las personas de nuestro ArrayList
+            System.out.println("============================================================");
+            Nodo persona = (Nodo) ListToken.get(j);
+            System.out.println("Lexico: " + persona.getValor());
+            System.out.println("Valor: " + persona.getDescripcion());
+            System.out.println("============================================================");
+        }
     }
 
 }
