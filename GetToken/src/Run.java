@@ -18,7 +18,6 @@ public class Run {
         Token to = new Token("   a a 12H/olaho la83+s00+9/5.3hola-9.2h3/9*");
         while (to.getHaveToken()) {
             String r = to.getToken();
-//            r = r.trim();
             if (r.length() > 0) {
                 System.out.println(r);
             }
