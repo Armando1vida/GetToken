@@ -14,9 +14,11 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Token to = new Token("12H/ola hola83+s00+9/5.3hola-9.2h3/9*");
+//        Token to = new Token("s +   32+5");
+        Token to = new Token("   a a 12H/olaho la83+s00+9/5.3hola-9.2h3/9*");
         while (to.getHaveToken()) {
             String r = to.getToken();
+//            r = r.trim();
             if (r.length() > 0) {
                 System.out.println(r);
             }
