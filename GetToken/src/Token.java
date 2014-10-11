@@ -14,22 +14,27 @@ public class Token {
 
     private String cad;
     private Boolean haveToken;
+    public static String cadtmp;
+    public static Character chartmp;
+
     private String matchSring = "[a-zA-ZñÑ]";
-    private String matchInt = "[0-9.]";
-    private String matchOperacion = "[*|/|+|-]";
+    public static final int string_name = 0;
+
+    private String matchNum = "[0-9.]";
+    public static final int num_name = 1;
+
+    private String matchOperacion = "[^0-9|^A-Za-zÑñ|^ ]";
+    public static final int operador_name = 2;
+
     private String matchValue;
     private Integer begin = 0;
 
-    ArrayList ListToken = new ArrayList();
-
-    public static final int num = 0;
-    public static final int string = 1;
-    public static final int operador = 2;
+    ArrayList<Nodo> ListToken = new ArrayList();
 
     public Token(String cad) {
         this.cad = cad;
         this.haveToken = true;
-        this.matchValue = this.matchInt;
+        this.matchValue = this.matchSring;
     }
 
     /**
@@ -50,41 +55,40 @@ public class Token {
      * @return the token
      */
     public String getToken() {
-        String strreturn = "";
-        String chart = "";
+        cadtmp = "";
         for (int x = this.getBegin(); x < this.getCad().length(); x++) {
+            chartmp = this.getCad().charAt(x);
             this.setBegin(x);
-            chart = this.getCad().charAt(x) + "";
-            if (!chart.equals(" ")) {
-                if (Pattern.matches(this.getMatchValue(), chart)) {
-                    strreturn = strreturn + this.getCad().charAt(x);
-                } else {
-                    if (this.getMatchValue().equals(this.getMatchSring())) {
-                        this.setMatchValue(this.getMatchInt());
-                        ListToken.add(new Nodo(strreturn, 1));
-                        return strreturn;
-                    }
-                    if (this.getMatchValue().equals(this.getMatchInt())) {
-                        this.setMatchValue(this.getMatchOperacion());
-                        ListToken.add(new Nodo(strreturn, 0));
-                        return strreturn;
-                    }
+            if (chartmp != ' ') {
+                if (Pattern.matches(this.getMatchValue(), chartmp + "")) {
+                    cadtmp = cadtmp + chartmp;
                     if (this.getMatchValue().equals(this.getMatchOperacion())) {
-                        this.setMatchValue(this.getMatchSring());
-                        ListToken.add(new Nodo(strreturn, 2));
-                        return strreturn;
+                        this.setBegin(x + 1);
+                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                        return cadtmp;
                     }
+                } else {
+                    if (!cadtmp.equals("")) {
+                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                    }
+                    this.changeMatchValue(chartmp);
+                    return cadtmp;
                 }
 
             } else {
+                if (!cadtmp.equals("")) {
+                    ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                }
                 this.setBegin(x + 1);
-                return strreturn;
-
+                return cadtmp;
             }
 
         }
+        if (!cadtmp.equals("")) {
+            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+        }
         this.setHaveToken(false);
-        return strreturn;
+        return cadtmp;
     }
 
     /**
@@ -118,15 +122,15 @@ public class Token {
     /**
      * @return the matchInt
      */
-    public String getMatchInt() {
-        return matchInt;
+    public String getMatchNum() {
+        return matchNum;
     }
 
     /**
-     * @param matchInt the matchInt to set
+     * @param matchNum
      */
-    public void setMatchInt(String matchInt) {
-        this.matchInt = matchInt;
+    public void setMatchNum(String matchNum) {
+        this.matchNum = matchNum;
     }
 
     /**
@@ -172,10 +176,37 @@ public class Token {
     }
 
     /**
+     * @param matchvalue
      * @return the begin
      */
-    public Integer getValuen() {
+    public Integer getMatchName(String matchvalue) {
+        if (this.getMatchSring().equals(matchvalue)) {
+            return string_name;
+        }
+        if (this.getMatchNum().equals(matchvalue)) {
+            return num_name;
+        }
+        if (this.getMatchOperacion().equals(matchvalue)) {
+            return operador_name;
+        }
         return begin;
+    }
+
+    /**
+     * @param c
+     * @return
+     */
+    public String changeMatchValue(Character c) {
+        if (Pattern.matches(this.getMatchSring(), c + "")) {
+            this.setMatchValue(this.getMatchSring());
+        }
+        if (Pattern.matches(this.getMatchNum(), c + "")) {
+            this.setMatchValue(this.getMatchNum());
+        }
+        if (Pattern.matches(this.getMatchOperacion(), c + "")) {
+            this.setMatchValue(this.getMatchOperacion());
+        }
+        return this.getMatchValue();
     }
 
     public void imprimir() {

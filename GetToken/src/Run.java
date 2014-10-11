@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-
+//import static Token.chartmp;
+import java.util.regex.Pattern;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,11 +16,11 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Token to = new Token("aa12H/o    lahola83+s00+9/5.3hola-9.2h3/9*");
+        Token to = new Token("for ( int abdc=3; abdc< h;abdc++){}");
         while (to.getHaveToken()) {
-            String r = to.getToken();
-            if (r.length() > 0) {
-                System.out.println(r);
+            String g = to.getToken();
+            if (g.length() > 0) {
+                System.out.println(g);
             }
         }
         to.imprimir();
