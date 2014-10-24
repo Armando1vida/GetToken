@@ -1,16 +1,19 @@
+package classe;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.ArrayList;
+//import .*;
+//import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
  *
  * @author Estudiante
  */
-public class Token {
+public class Lectura {
 
     private String cad;
     private Boolean haveToken;
@@ -29,10 +32,15 @@ public class Token {
     private String matchValue;
     private Integer begin = 0;
 
-    ArrayList<Nodo> ListToken = new ArrayList();
-
-    public Token(String cad) {
+//    ArrayList<Nodo> ListToken = new ArrayList();
+    public Lectura(String cad) {
         this.cad = cad;
+        this.haveToken = true;
+        this.matchValue = this.matchSring;
+    }
+
+    public Lectura() {
+        this.cad = "";
         this.haveToken = true;
         this.matchValue = this.matchSring;
     }
@@ -68,24 +76,24 @@ public class Token {
                         return cadtmp;
                     }
                 } else {
-//                    if (cadtmp != null) {
-//                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+//                    if (!cadtmp.equals("")) {
+////                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
 //                    }
                     this.changeMatchValue(chartmp);
                     return cadtmp;
                 }
 
             } else {
-//                if (cadtmp != null) {
-//                    ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+//                if (!cadtmp.equals("")) {
+////                    ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
 //                }
                 this.setBegin(x + 1);
                 return cadtmp;
             }
 
         }
-//        if (cadtmp != null) {
-//            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+//        if (!cadtmp.equals("")) {
+////            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
 //        }
         this.setHaveToken(false);
         return cadtmp;
@@ -209,14 +217,13 @@ public class Token {
         return this.getMatchValue();
     }
 
-    public void imprimir() {
-        for (int j = 0; j < ListToken.size(); j++) {//ahora imprimiremos las personas de nuestro ArrayList
-            System.out.println("============================================================");
-            Nodo persona = (Nodo) ListToken.get(j);
-            System.out.println("Lexico: " + persona.getValor());
-            System.out.println("Valor: " + persona.getDescripcion());
-            System.out.println("============================================================");
-        }
-    }
-
+//    public void imprimir() {
+//        for (int j = 0; j < ListToken.size(); j++) {//ahora imprimiremos las personas de nuestro ArrayList
+//            System.out.println("============================================================");
+//            Nodo persona = (Nodo) ListToken.get(j);
+//            System.out.println("Lexico: " + persona.getValor());
+//            System.out.println("Valor: " + persona.getDescripcion());
+//            System.out.println("============================================================");
+//        }
+//    }
 }

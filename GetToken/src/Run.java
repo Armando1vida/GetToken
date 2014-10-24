@@ -17,13 +17,12 @@ public class Run {
      */
     public static void main(String[] args) {
         Token to = new Token("for ( int abdc=3; abdc< h;abdc++){}");
-        while (to.getHaveToken()) {
-            String g = to.getToken();
-            if (g.length() > 0) {
-                System.out.println(g);
-            }
+        String c = to.getToken();
+        while (c != null) {
+//            System.out.println(c);
+            c = to.getToken();
+            System.out.println(c);
         }
-        to.imprimir();
     }
 
 }
