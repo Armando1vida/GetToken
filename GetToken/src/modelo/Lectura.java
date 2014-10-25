@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classe;
+package modelo;
 
-public class Lectura1 {
+public class Lectura {
 
     private String cad;
     private String matchSring = "[a-zA-ZñÑ]";
@@ -13,10 +13,10 @@ public class Lectura1 {
     private String matchOperacion = "[^0-9|^A-Za-zÑñ|^ ]";
     private Integer begin = 0;
 
-    public Lectura1() {
+    public Lectura() {
     }
 
-    public Lectura1(String cad) {
+    public Lectura(String cad) {
         this.cad = cad;
         this.begin = 0;
     }
@@ -33,6 +33,7 @@ public class Lectura1 {
      */
     public void setCad(String cad) {
         this.cad = cad;
+        this.begin = 0;
     }
 
     /**
@@ -123,11 +124,6 @@ public class Lectura1 {
     }
 
     public String getToken() {
-        if (this.cad.charAt(this.getBegin()) == ' ') {
-            int d = this.getBegin();
-            this.setBegin(d++);
-            this.getToken();
-        }
         String retorno = this.getNumber();
         if (retorno != null) {
             return retorno;
@@ -140,10 +136,12 @@ public class Lectura1 {
         if (retorno != null) {
             return retorno;
         }
-        if (this.cad.charAt(this.getBegin()) == ' ') {
+
+        if (this.getBegin() < this.cad.length() && this.cad.charAt(this.getBegin()) == ' ') {
             int d = this.getBegin();
-            this.setBegin(d++);
-            this.getToken();
+            d = d + 1;
+            this.setBegin(d);
+            return this.getToken();
         }
         return null;
     }

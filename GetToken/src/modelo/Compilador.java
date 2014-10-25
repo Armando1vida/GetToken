@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classe;
+package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +26,9 @@ public class Compilador {
 
     public void analzarLexico() {
         lectura.setCad(cadena);
-        String cad;
-//        System.out.println(lectura.getCad());
-//        return;
-        while (lectura.getHaveToken()) {
-            cad = lectura.getToken();
-            if (cad.matches("[0-9]+")) {
+        String cad = lectura.getToken();
+        while (cad != null) {
+            if (cad.matches("[0-9.]+")) {
                 listaToken.add(new Token(cad, Token.NUMERO));
             } else if (cad.equals("+")) {
                 listaToken.add(new Token(cad, Token.OPERADOR_MAS));
@@ -44,6 +41,7 @@ public class Compilador {
             } else {
                 listaToken.add(new Token(cad, Token.OTRO));
             }
+            cad = lectura.getToken();
         }
     }
 
@@ -68,10 +66,8 @@ public class Compilador {
     }
 
     public void MostarToken() {
-//        System.out.println("hola");
         for (Token token : this.listaToken) {
-            System.out.println("entor");
-            System.out.println(token.getLexema() + " " + token.getValor_token());
+            System.out.println(token.getLexema() + " => " + token.getValor_token());
 
         }
     }

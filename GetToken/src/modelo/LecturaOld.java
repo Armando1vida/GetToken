@@ -1,4 +1,4 @@
-package classe;
+package modelo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  *
  * @author Estudiante
  */
-public class Lectura {
+public class LecturaOld {
 
     private String cad;
     private Boolean haveToken;
@@ -33,13 +33,13 @@ public class Lectura {
     private Integer begin = 0;
 
 //    ArrayList<Nodo> ListToken = new ArrayList();
-    public Lectura(String cad) {
+    public LecturaOld(String cad) {
         this.cad = cad;
         this.haveToken = true;
         this.matchValue = this.matchSring;
     }
 
-    public Lectura() {
+    public LecturaOld() {
         this.cad = "";
         this.haveToken = true;
         this.matchValue = this.matchSring;
