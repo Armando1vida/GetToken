@@ -19,7 +19,7 @@ public class FormLectura extends javax.swing.JFrame {
     DefaultTableModel modelTable;
 
     /**
-     * Creates new form FormLectura
+     * Creates new form FormLeSctura
      */
     public FormLectura() {
         initComponents();
