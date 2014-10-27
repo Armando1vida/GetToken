@@ -12,7 +12,7 @@ package modelo;
 public class test {
 
     public static void main(String[] args) {
-        Compilador c = new Compilador("22  + 1203.9");
+        Compilador c = new Compilador("22+ 1203.9");
         c.analzarLexico();
         c.MostarToken();
         c.analizadorSintactico();
