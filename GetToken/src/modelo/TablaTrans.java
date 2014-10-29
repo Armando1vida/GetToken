@@ -20,6 +20,10 @@ public class TablaTrans {
         matriz[3] = new int[]{1001, 2, 2, 2, 2, 1002};
     }
 
+    public TablaTrans(int[][] m) {
+        this.matriz = m;
+    }
+
     public int getEstadoSiguiente(int estado, int valor_token) {
         return matriz[estado][valor_token];
     }

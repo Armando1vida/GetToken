@@ -55,7 +55,7 @@ public class Token {
      * @return the token
      */
     public String getToken() {
-        cadtmp = null;
+        cadtmp = "";
         for (int x = this.getBegin(); x < this.getCad().length(); x++) {
             chartmp = this.getCad().charAt(x);
             this.setBegin(x);
@@ -64,29 +64,31 @@ public class Token {
                     cadtmp = cadtmp + chartmp;
                     if (this.getMatchValue().equals(this.getMatchOperacion())) {
                         this.setBegin(x + 1);
-//                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                        if (cadtmp != "") {
+                            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                        }
                         return cadtmp;
                     }
                 } else {
-//                    if (cadtmp != null) {
-//                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
-//                    }
+                    if (cadtmp != "") {
+                        ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                    }
                     this.changeMatchValue(chartmp);
                     return cadtmp;
                 }
 
             } else {
-//                if (cadtmp != null) {
-//                    ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
-//                }
+                if (cadtmp != "") {
+                    ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+                }
                 this.setBegin(x + 1);
                 return cadtmp;
             }
 
         }
-//        if (cadtmp != null) {
-//            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
-//        }
+        if (cadtmp != "") {
+            ListToken.add(new Nodo(cadtmp, this.getMatchName(this.getMatchValue())));
+        }
         this.setHaveToken(false);
         return cadtmp;
     }

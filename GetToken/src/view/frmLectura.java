@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Lectura;
@@ -14,14 +16,15 @@ import modelo.Token;
  *
  * @author ArmandoPC
  */
-public class FormLectura extends javax.swing.JFrame {
+public class frmLectura extends javax.swing.JFrame {
 
     DefaultTableModel modelTable;
+    private List<Token> listaToken = new ArrayList<>();
 
     /**
      * Creates new form FormLeSctura
      */
-    public FormLectura() {
+    public frmLectura() {
         initComponents();
         modelTable = (DefaultTableModel) this.table_token.getModel();
     }
@@ -178,12 +181,14 @@ public class FormLectura extends javax.swing.JFrame {
             while (modelTable.getRowCount() > 0) {
                 modelTable.removeRow(0);
             }
+            Lectura to = new Lectura(cadToken);
+            
 //            Lectura to = new Lectura(cadLectura);
 //            while (to.getHaveLectura()) {
 //                to.getLectura();
 //            }
 //            for (int j = 0; j < to.ListLectura.size(); j++) {
-//                Token  token = (Token ) to.ListLectura.get(j);
+//                Token token = (Token) to.ListLectura.get(j);
 //                modelTable.addRow(new Object[]{j + 1, token.getValor(), token.getDescripcion()});
 //            }
         } else {
@@ -213,20 +218,21 @@ public class FormLectura extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLectura.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLectura().setVisible(true);
+                new frmLectura().setVisible(true);
             }
         });
     }
