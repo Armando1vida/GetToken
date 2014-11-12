@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Lectura;
-import modelo.Token;
+import model.Lectura;
+import model.Token;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

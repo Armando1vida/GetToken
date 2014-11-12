@@ -5,23 +5,38 @@
  */
 package view;
 
+import javax.swing.JDesktopPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ArmandoPC
  */
-//public class frmTrans extends javax.swing.JFrame {
-public class frmTrans extends javax.swing.JInternalFrame {
+public class frmTrans1 extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelTable;
+    String[] s;
+    Object[][] dataTable;
+    JDesktopPane jDes;
 
     /**
-     * Creates new form frmTrans
+     * Creates new form frmTrans1
      */
-    public frmTrans() {
+    public frmTrans1(JDesktopPane jDesktopPanel) {
         initComponents();
         modelTable = (DefaultTableModel) this.table_trans.getModel();
+        jDes = jDesktopPanel;
+        dataTable = new Object[][]{
+            {"q0", null, null, null},
+            {"q1", null, null, null},
+            {"q2", "", null, null},
+            {"q4", null, null, null}
+        };
+        s = new String[]{
+            "Estados\\Simbolo", "S0", "S1", "Otros"
+        };
+
     }
 
     /**
@@ -42,8 +57,8 @@ public class frmTrans extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         table_trans = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setClosable(true);
+        setIconifiable(true);
 
         jLabel2.setText("Numero de estados: ");
 
@@ -74,7 +89,7 @@ public class frmTrans extends javax.swing.JInternalFrame {
                 {"q4", null, null, null}
             },
             new String [] {
-                "Simbolo/Estados", "S1", "S2", "Otros"
+                "Estados\\Simbolo", "S1", "S2", "Otros"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -89,12 +104,6 @@ public class frmTrans extends javax.swing.JInternalFrame {
         table_trans.setDragEnabled(true);
         table_trans.setUpdateSelectionOnSort(false);
         jScrollPane2.setViewportView(table_trans);
-        if (table_trans.getColumnModel().getColumnCount() > 0) {
-            table_trans.getColumnModel().getColumn(0).setResizable(false);
-            table_trans.getColumnModel().getColumn(1).setResizable(false);
-            table_trans.getColumnModel().getColumn(2).setResizable(false);
-            table_trans.getColumnModel().getColumn(3).setResizable(false);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +150,7 @@ public class frmTrans extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -150,72 +159,135 @@ public class frmTrans extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (this.pretarate()) {
-
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.imprimirTable();
+        if (!this.isEmptyTable(this.table_trans)) {
+            if (this.getDataTable(this.table_trans)) {
+                frmSetupTrans obj = new frmSetupTrans(s, dataTable);
+                obj.setVisible(true);
+                jDes.add(obj);
+            }
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
-
     public Boolean pretarate() {
         if (this.txt_num_estado.getText().matches("[1-9][0-9]*") && this.txt_num_simbolo.getText().matches("[1-9][0-9]*")) {
             if (this.txt_num_estado.getText().length() != 0 && this.txt_num_simbolo.getText().length() != 0) {
-                modelTable.setColumnCount(Integer.parseInt(this.txt_num_simbolo.getText()) + 2);
-                modelTable.setRowCount(Integer.parseInt(this.txt_num_estado.getText()) + 1);
-//                this.table_trans.setTableHeader();
+                this.prTable(Integer.parseInt(this.txt_num_estado.getText()), Integer.parseInt(this.txt_num_simbolo.getText()));
                 return true;
             }
         }
         return false;
     }
 
-    public void imprimirTable() {
-
-        for (int i = 0; i < this.table_trans.getRowCount(); i++) {
-            for (int j = 1; j < this.table_trans.getColumnCount(); j++) {
-                System.out.print(this.table_trans.getValueAt(i, j) + " ");
+    public void imprimirTable(JTable table) {
+        for (int i = 0; i < table.getRowCount(); i++) {
+            for (int j = 1; j < table.getColumnCount(); j++) {
+                System.out.print(table.getValueAt(i, j) + " ");
             }
             System.out.println("");
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frmTrans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frmTrans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frmTrans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frmTrans.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
+    public Boolean isEmptyTable(JTable table) {
+        dataTable = new Object[table.getRowCount()][table.getColumnCount() - 1];
+        for (int i = 0; i < table.getRowCount(); i++) {
+            for (int j = 1; j < table.getColumnCount(); j++) {
+                if (table.getValueAt(i, j) == null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Boolean getDataTable(JTable table) {
+        dataTable = new Object[table.getRowCount()][table.getColumnCount() - 1];
+        int g = 0;
+        for (int i = 0; i < table.getRowCount(); i++) {
+            g = 0;
+            for (int j = 1; j < table.getColumnCount(); j++) {
+                dataTable[i][g] = table.getValueAt(i, j);
+                g++;
+            }
+        }
+        return true;
+    }
+
+    public void imprimir(Object[][] h) {
+        for (int i = 0; i < h.length; i++) {
+            for (int j = 0; j < h[0].length; j++) {
+                System.out.print(h[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+//    public void im(Object[][] g) {
 //
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-////            public void run() {
-//////                new frmTrans().setVisible(true);
-////            }
-//        });
+//        for (int i = 0; i < g.length; i++) {
+//
+//            for (int j = 0; j < g[0].length; j++) {
+//                System.out.print(g[i][j] + " ");
+//
+//            }
+//            System.out.println("");
+//        }
 //    }
+//
+//    public void ih(String[] n) {
+//        for (int i = 0; i < n.length; i++) {
+//            System.out.println(n[i]);
+//        }
+//    }
+    /**
+     * Prepara la tabla
+     *
+     * @param num_estado
+     * @param num_simbolo
+     */
+    public void prTable(int num_estado, int num_simbolo) {
+        num_simbolo = num_simbolo + 2;
+        Object[][] ob = new Object[num_estado][num_simbolo];
+        s = new String[num_simbolo];
+        boolean[] canEdit = new boolean[num_simbolo];
+        Boolean t = true;
+        for (int i = 0; i < num_estado; i++) {
+            for (int j = 0; j < num_simbolo; j++) {
+                if (t) {
+                    if (j == 0) {
+                        canEdit[j] = false;
+                        s[j] = "Estados\\Simbolo";
+                    } else if (j < num_simbolo - 1) {
+                        s[j] = "S" + (j - 1);
+
+                        canEdit[j] = true;
+                    } else {
+                        s[j] = "Otros";
+                        canEdit[j] = true;
+                    }
+                }
+                if (j == 0) {
+                    ob[i][j] = "q" + i;
+                } else {
+                    ob[i][j] = null;
+                }
+            }
+            t = false;
+        }
+        this.table_trans.setModel(new javax.swing.table.DefaultTableModel(
+                ob,
+                s
+        ) {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        }
+        );
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

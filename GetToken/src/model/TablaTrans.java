@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package model;
 
 /**
  *
  * @author ArmandoPC
  */
 public class TablaTrans {
+
+    private String nombre;
 
     private int[][] matriz = new int[4][];
 
@@ -24,8 +26,41 @@ public class TablaTrans {
         this.matriz = m;
     }
 
+    public TablaTrans(String nombre, int[][] m) {
+        this.nombre = nombre;
+        this.matriz = m;
+    }
+
     public int getEstadoSiguiente(int estado, int valor_token) {
-        return matriz[estado][valor_token];
+        return getMatriz()[estado][valor_token];
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the matriz
+     */
+    public int[][] getMatriz() {
+        return matriz;
+    }
+
+    /**
+     * @param matriz the matriz to set
+     */
+    public void setMatriz(int[][] matriz) {
+        this.matriz = matriz;
     }
 
 }
