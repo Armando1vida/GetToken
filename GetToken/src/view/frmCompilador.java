@@ -116,6 +116,7 @@ public class frmCompilador extends javax.swing.JInternalFrame {
             this.com = new Compilador(datacompiler, this.txtcad.getText());
             this.com.analzarLexico();
             String h = this.com.analizadorSintactico(new TablaTrans(this.convert(datacompiler.getTableTans())));
+            this.com.MostarToken();
             this.txtresult.setText(h);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

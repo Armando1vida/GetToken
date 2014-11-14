@@ -10,7 +10,7 @@ public class Lectura {
     private String cad;
     private String matchSring = "[a-zA-ZñÑ]";
     private String matchNum = "[0-9.]";
-    private String matchOperacion = "[^0-9|^A-Za-zÑñ|^ ]";
+    private String matchOperacion = "[^0-9|^A-Za-zÑñ]|[\\^]|[^ ]";
     private Integer begin = 0;
 
     public Lectura() {
@@ -132,17 +132,17 @@ public class Lectura {
         if (retorno != null) {
             return retorno;
         }
-        retorno = this.getSymbol();
-        if (retorno != null) {
-            return retorno;
-        }
-
         if (this.getBegin() < this.cad.length() && this.cad.charAt(this.getBegin()) == ' ') {
             int d = this.getBegin();
             d = d + 1;
             this.setBegin(d);
             return this.getToken();
         }
+        retorno = this.getSymbol();
+        if (retorno != null) {
+            return retorno;
+        }
+
         return null;
     }
 

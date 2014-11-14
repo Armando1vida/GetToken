@@ -30,8 +30,8 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         dataTable = new Object[][]{
             {"q0", null, null, null},
             {"q1", null, null, null},
-            {"q2", "", null, null},
-            {"q4", null, null, null}
+            {"q2", null, null, null},
+            {"q3", null, null, null}
         };
         s = new String[]{
             "Estados\\Simbolo", "S0", "S1", "Otros"
@@ -86,7 +86,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                 {"q0", null, null, null},
                 {"q1", null, null, null},
                 {"q2", "", null, null},
-                {"q4", null, null, null}
+                {"q3", null, null, null}
             },
             new String [] {
                 "Estados\\Simbolo", "S1", "S2", "Otros"
@@ -150,7 +150,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

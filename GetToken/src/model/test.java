@@ -12,10 +12,18 @@ package model;
 public class test {
 
     public static void main(String[] args) {
-//        Compilador c = new Compilador("22+ 1203.9");
-//        c.analzarLexico();
-//        c.MostarToken();
-//        c.analizadorSintactico();
+////        CompiladorOld c = new CompiladorOld("22-1203.9");
+////        c.analzarLexico();
+////        c.MostarToken();
+////        c.analizadorSintactico();
+////        String d="^";
+////        System.out.println(d.matches("\\^"));
+        String d = ";";
+
+        Boolean dd = d.matches(";");
+
+        System.out.println(dd);
+//        "[^0-9|^A-Za-zÑñ|^ |\\^]|[\\^]"
     }
 
 }

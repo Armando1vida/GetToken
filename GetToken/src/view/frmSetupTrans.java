@@ -142,7 +142,7 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
     }
 
     public void loadTable(String[] data) {
-        Object[][] h = new Object[data.length - 1][2];
+        Object[][] h = new Object[data.length - 2][2];
         for (int i = 0; i < h.length; i++) {
             for (int j = 0; j < 2; j++) {
                 if (j == 0) {
@@ -181,9 +181,13 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
     }
 
     public Boolean getDataTable(JTable table) {
+        int y = 0;
         for (int i = 0; i < table.getRowCount(); i++) {
             lista.add(new ConstansToken(table.getValueAt(i, 0).toString(), i, table.getValueAt(i, 1).toString()));
+            y = i;
         }
+        lista.add(new ConstansToken(this.s[y + 2], y + 1, ""));
+
         return true;
     }
 

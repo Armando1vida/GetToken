@@ -61,8 +61,9 @@ public class DataCompiler {
      */
     public int valueofCad(String cad) {
         for (int i = 0; i < this.getLista().size() - 1; i++) {
-            System.out.println(this.getLista().get(i).getSimbolo());
-            if (cad.matches(this.getLista().get(i).getMatch())) { // si conincide el match con la cadena
+//            System.out.println(this.getLista().get(i).getSimbolo());
+            System.out.println(cad + " === " + cad.matches(this.getLista().get(i).getMatch() + "") + " ==> " + this.getLista().get(i).getMatch());
+            if (cad.matches(this.getLista().get(i).getMatch() + "")) { // si conincide el match con la cadena
                 return this.getLista().get(i).getValor();
             }
         }

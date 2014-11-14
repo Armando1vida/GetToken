@@ -122,7 +122,7 @@
                   <Data value="q0"/>
                   <Data value="q1"/>
                   <Data value="q2"/>
-                  <Data value="q4"/>
+                  <Data value="q3"/>
                 </Column>
                 <Column editable="true" title="S1" type="java.lang.Object">
                   <Data value="null"/>
