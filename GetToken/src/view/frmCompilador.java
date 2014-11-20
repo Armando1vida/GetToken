@@ -5,7 +5,9 @@
  */
 package view;
 
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.Compilador;
 import model.ConstansToken;
 import model.DataCompiler;
@@ -17,7 +19,7 @@ import model.TablaTrans;
  * @author ArmandoPC
  */
 public class frmCompilador extends javax.swing.JInternalFrame {
-
+    
     Serialize se;
     DataCompiler datacompiler;
     Compilador com;
@@ -29,7 +31,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         initComponents();
         se = new Serialize();
         datacompiler = new DataCompiler();
-
+        llenarCombobox();
+        
     }
 
     /**
@@ -46,8 +49,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtresult = new javax.swing.JTextArea();
-        txtfilename = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtfilename = new javax.swing.JComboBox();
 
         jLabel1.setText("Cadena: ");
 
@@ -64,6 +67,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Archivo:");
 
+        txtfilename.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,9 +82,9 @@ public class frmCompilador extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfilename, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcad, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtcad, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(txtfilename, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -97,10 +102,10 @@ public class frmCompilador extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtcad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtfilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -112,35 +117,37 @@ public class frmCompilador extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (this.preparate()) {
-            datacompiler = se.ReadXml(txtfilename.getText());
+            datacompiler = se.ReadXml(txtfilename.getSelectedItem().toString());
             this.com = new Compilador(datacompiler, this.txtcad.getText());
             this.com.analzarLexico();
             String h = this.com.analizadorSintactico(new TablaTrans(this.convert(datacompiler.getTableTans())));
             this.com.MostarToken();
             this.txtresult.setText(h);
+        } else {
+            this.msg("Campos incompletos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     public Boolean preparate() {
-        if (this.txtcad.getText().length() != 0 && this.txtfilename.getText().length() != 0) {
+        if (this.txtcad.getText().length() != 0 && this.txtfilename.getSelectedItem().toString().length() != 0) {
             return true;
         }
         return false;
-
+        
     }
-
+    
     public void im(Object[][] g) {
-
+        
         for (int i = 0; i < g.length; i++) {
-
+            
             for (int j = 0; j < g[0].length; j++) {
                 System.out.print(g[i][j] + " ");
-
+                
             }
             System.out.println("");
         }
     }
-
+    
     public int[][] convert(Object[][] g) {
         int[][] gf = new int[g.length][g[0].length];
         for (int i = 0; i < g.length; i++) {
@@ -150,20 +157,39 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         }
         return gf;
     }
-
+    
     public void imLis(ArrayList<ConstansToken> g) {
         for (ConstansToken g1 : g) {
             System.out.println(g1.getSimbolo() + " " + g1.getMatch() + " " + g1.getValor());
         }
     }
+    
+    public void llenarCombobox() {
+        String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
+        String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
+        to = to + separator + "src" + separator + "src" + separator; // concateno la ruta destino
+        File f = new File(to);
+        this.txtfilename.removeAllItems();
+        if (f.exists()) { // Directorio existe 
+            File[] ficheros = f.listFiles();
+            for (int x = 0; x < ficheros.length; x++) {
+                this.txtfilename.addItem(ficheros[x].getName());
+            }
+        } else { //Directorio no existe 
 
+        }
+    }
+    
+    public void msg(String message) {
+        JOptionPane.showMessageDialog(this.getRootPane(), message);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtcad;
-    private javax.swing.JTextField txtfilename;
+    private javax.swing.JComboBox txtfilename;
     private javax.swing.JTextArea txtresult;
     // End of variables declaration//GEN-END:variables
 }

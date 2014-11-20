@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -158,7 +159,8 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.pretarate()) {
+        if (!this.pretarate()) {
+            this.msg("Campos incompletos o erróneos.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -169,6 +171,8 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                 obj.setVisible(true);
                 jDes.add(obj);
             }
+        } else {
+            this.msg("Tabla incompleta");
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -195,7 +199,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         dataTable = new Object[table.getRowCount()][table.getColumnCount() - 1];
         for (int i = 0; i < table.getRowCount(); i++) {
             for (int j = 1; j < table.getColumnCount(); j++) {
-                if (table.getValueAt(i, j) == null) {
+                if (table.getValueAt(i, j) == null || table.getValueAt(i, j).toString().length() == 0) {
                     return true;
                 }
             }
@@ -288,7 +292,9 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         );
     }
 
-
+    public void msg(String message) {
+        JOptionPane.showMessageDialog(this.getRootPane(), message);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

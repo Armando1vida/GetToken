@@ -145,5 +145,8 @@ public class Lectura {
 
         return null;
     }
-
+    /**
+     * TODO : hacer que los token cojan las expresiones de las ConstansToken
+     */
+    
 }

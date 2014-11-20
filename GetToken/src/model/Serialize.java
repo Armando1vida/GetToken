@@ -43,7 +43,7 @@ public class Serialize {
         DataCompiler archivo = null;
         String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
         String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
-        to = to + separator + "src" + separator + "src" + separator + filename + ".xml"; // concateno la ruta destino
+        to = to + separator + "src" + separator + "src" + separator + filename ; // concateno la ruta destino
         try {
             XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(to)));
             archivo = (DataCompiler) decoder.readObject();

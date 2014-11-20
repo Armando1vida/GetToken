@@ -6,6 +6,7 @@
 package view;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.ConstansToken;
 import model.DataCompiler;
@@ -120,6 +121,8 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
             this.datacompiler = new DataCompiler(lista, dataTable);
             se.writeXml(datacompiler, this.txtnamefile.getText());
 
+        } else {
+            this.msg("Datos incompletos");
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -190,7 +193,9 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
 
         return true;
     }
-
+  public void msg(String message) {
+        JOptionPane.showMessageDialog(this.getRootPane(), message);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
