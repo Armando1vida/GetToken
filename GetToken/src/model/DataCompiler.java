@@ -6,7 +6,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -61,13 +60,26 @@ public class DataCompiler {
      */
     public int valueofCad(String cad) {
         for (int i = 0; i < this.getLista().size() - 1; i++) {
-//            System.out.println(this.getLista().get(i).getSimbolo());
-            System.out.println(cad + " === " + cad.matches(this.getLista().get(i).getMatch() + "") + " ==> " + this.getLista().get(i).getMatch());
-            if (cad.matches(this.getLista().get(i).getMatch() + "")) { // si conincide el match con la cadena
+            if (cad.matches(this.getLista().get(i).getMatch())) {
                 return this.getLista().get(i).getValor();
             }
         }
         return this.getLista().get(this.getLista().size() - 1).getValor(); // si no coincide retorn ]a valor de otros
+    }
+
+    /**
+     * Devulve el valor del match segun la cadena
+     *
+     * @param cad
+     * @return Integer valor del match
+     */
+    public int valueofCadEquals(String cad) {
+        for (int i = 0; i < this.getLista().size() - 1; i++) {
+            if (cad.equals(this.getLista().get(i).getMatch())) {
+                return this.getLista().get(i).getValor();
+            }
+        }
+        return 0; // si no coincide retorn ]a valor de otros
     }
 
 }

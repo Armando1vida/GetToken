@@ -20,24 +20,26 @@ public class test {
 //////        c.analizadorSintactico();
 //////        String d="^";
 //////        System.out.println(d.matches("\\^"));
-//        String d = ";";
+        String d = "q{";
+
+        Boolean dd = d.equalsIgnoreCase("q{");
+//        Boolean dd = d.matches("[+|\\-|*|/]");
+        
 //
-//        Boolean dd = d.matches(";");
-//
-//        System.out.println(dd);
+        System.out.println(dd);
 ////        "[^0-9|^A-Za-zÑñ|^ |\\^]|[\\^]"
-        String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
-        String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
-        to = to + separator + "src" + separator + "src" + separator; // concateno la ruta destino
-        File f = new File(to);
-        if (f.exists()) { // Directorio existe 
-            File[] ficheros = f.listFiles();
-            for (int x = 0; x < ficheros.length; x++) {
-                System.out.println(ficheros[x].getName());
-            }
-        } else { //Directorio no existe 
-            
-        }
+//        String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
+//        String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
+//        to = to + separator + "src" + separator + "src" + separator; // concateno la ruta destino
+//        File f = new File(to);
+//        if (f.exists()) { // Directorio existe 
+//            File[] ficheros = f.listFiles();
+//            for (int x = 0; x < ficheros.length; x++) {
+//                System.out.println(ficheros[x].getName());
+//            }
+//        } else { //Directorio no existe 
+//            
+//        }
 
     }
 

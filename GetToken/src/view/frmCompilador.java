@@ -19,7 +19,7 @@ import model.TablaTrans;
  * @author ArmandoPC
  */
 public class frmCompilador extends javax.swing.JInternalFrame {
-    
+
     Serialize se;
     DataCompiler datacompiler;
     Compilador com;
@@ -32,7 +32,7 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         se = new Serialize();
         datacompiler = new DataCompiler();
         llenarCombobox();
-        
+
     }
 
     /**
@@ -127,43 +127,41 @@ public class frmCompilador extends javax.swing.JInternalFrame {
             this.msg("Campos incompletos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     public Boolean preparate() {
         if (this.txtcad.getText().length() != 0 && this.txtfilename.getSelectedItem().toString().length() != 0) {
             return true;
         }
         return false;
-        
+
     }
-    
+
     public void im(Object[][] g) {
-        
+
         for (int i = 0; i < g.length; i++) {
-            
             for (int j = 0; j < g[0].length; j++) {
                 System.out.print(g[i][j] + " ");
-                
             }
             System.out.println("");
         }
     }
-    
+
     public int[][] convert(Object[][] g) {
         int[][] gf = new int[g.length][g[0].length];
         for (int i = 0; i < g.length; i++) {
             for (int j = 0; j < g[0].length; j++) {
-                gf[i][j] = Integer.parseInt((String) g[i][j]);
+                gf[i][j] = Integer.parseInt(g[i][j] + "");
             }
         }
         return gf;
     }
-    
+
     public void imLis(ArrayList<ConstansToken> g) {
         for (ConstansToken g1 : g) {
             System.out.println(g1.getSimbolo() + " " + g1.getMatch() + " " + g1.getValor());
         }
     }
-    
+
     public void llenarCombobox() {
         String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
         String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
@@ -179,7 +177,7 @@ public class frmCompilador extends javax.swing.JInternalFrame {
 
         }
     }
-    
+
     public void msg(String message) {
         JOptionPane.showMessageDialog(this.getRootPane(), message);
     }

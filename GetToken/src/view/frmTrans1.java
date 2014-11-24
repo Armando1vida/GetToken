@@ -5,10 +5,12 @@
  */
 package view;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.AutoCompletion;
 
 /**
  *
@@ -27,17 +29,46 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
     public frmTrans1(JDesktopPane jDesktopPanel) {
         initComponents();
         modelTable = (DefaultTableModel) this.table_trans.getModel();
+//        this.table_trans.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        this.table_trans.getTableHeader().setReorderingAllowed(false);
         jDes = jDesktopPanel;
-        dataTable = new Object[][]{
-            {"q0", null, null, null},
-            {"q1", null, null, null},
-            {"q2", null, null, null},
-            {"q3", null, null, null}
+
+        this.cbxeorigen.removeAllItems();
+        this.cbxedestino.removeAllItems();
+        this.cbxsimbolo.removeAllItems();
+
+        this.cbxeorigen.addItem("q0");
+        this.cbxeorigen.addItem("q1");
+        this.cbxeorigen.addItem("q2");
+        this.cbxeorigen.addItem("q3");
+        this.cbxedestino.addItem("q0");
+        this.cbxedestino.addItem("q1");
+        this.cbxedestino.addItem("q2");
+        this.cbxedestino.addItem("q3");
+//        this.cbxeorigen.addItem(new Estado("q0", 0));
+//        this.cbxeorigen.addItem(new Estado("q1", 1));
+//        this.cbxeorigen.addItem(new Estado("q2", 2));
+//        this.cbxeorigen.addItem(new Estado("q3", 3));
+//        this.cbxedestino.addItem(new Estado("q0", 0));
+//        this.cbxedestino.addItem(new Estado("q1", 1));
+//        this.cbxedestino.addItem(new Estado("q2", 2));
+//        this.cbxedestino.addItem(new Estado("q3", 3));
+        this.cbxsimbolo.addItem("S0");
+        this.cbxsimbolo.addItem("S1");
+
+        this.dataTable = new Object[][]{
+            {"q0", 1000, 1001, 1002},
+            {"q1", 1000, 1001, 1002},
+            {"q2", 1000, 1001, 1002},
+            {"q3", 1000, 1001, 1002}
         };
         s = new String[]{
             "Estados\\Simbolo", "S0", "S1", "Otros"
         };
 
+        AutoCompletion.enable(cbxsimbolo);
+        AutoCompletion.enable(cbxedestino);
+        AutoCompletion.enable(cbxeorigen);
     }
 
     /**
@@ -57,6 +88,14 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_trans = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        cbxeorigen = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        cbxsimbolo = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        cbxedestino = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
+        rbbefinal = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -81,16 +120,15 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
 
         jScrollPane2.setAutoscrolls(true);
 
-        table_trans.setAutoCreateRowSorter(true);
         table_trans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"q0", null, null, null},
-                {"q1", null, null, null},
-                {"q2", "", null, null},
-                {"q3", null, null, null}
+                {"q0", "1000", "1001", "1002"},
+                {"q1", "1000", "1001", "1002"},
+                {"q2", "1000", "1001", "1002"},
+                {"q3", "1000", "1001", "1002"}
             },
             new String [] {
-                "Estados\\Simbolo", "S1", "S2", "Otros"
+                "Estados\\Simbolo", "S0", "S1", "Otros"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -102,63 +140,127 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
             }
         });
         table_trans.setToolTipText("");
-        table_trans.setDragEnabled(true);
         table_trans.setUpdateSelectionOnSort(false);
         jScrollPane2.setViewportView(table_trans);
+        if (table_trans.getColumnModel().getColumnCount() > 0) {
+            table_trans.getColumnModel().getColumn(1).setResizable(false);
+            table_trans.getColumnModel().getColumn(2).setResizable(false);
+            table_trans.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel1.setText("Estado Origen: ");
+
+        cbxeorigen.setEditable(true);
+        cbxeorigen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxeorigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxeorigenActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Simbolo:");
+
+        cbxsimbolo.setEditable(true);
+        cbxsimbolo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setText("Estado destino:");
+
+        cbxedestino.setEditable(true);
+        cbxedestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        rbbefinal.setText("Estado Final");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_num_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2))))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxeorigen, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxsimbolo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxedestino, 0, 1, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbbefinal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_num_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addContainerGap(369, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txt_num_estado, txt_num_simbolo});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel3});
 
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cbxedestino, cbxeorigen, cbxsimbolo});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_num_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(cbxedestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)
+                        .addComponent(rbbefinal))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(cbxsimbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(cbxeorigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxedestino, cbxeorigen, cbxsimbolo});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         if (!this.pretarate()) {
             this.msg("Campos incompletos o erróneos.");
         }
@@ -176,6 +278,25 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbxeorigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxeorigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxeorigenActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int origen = this.cbxeorigen.getSelectedIndex();
+        int simbolo = this.cbxsimbolo.getSelectedIndex();
+        int destino = this.cbxedestino.getSelectedIndex();
+        if (this.rbbefinal.isSelected()) {
+            destino = destino * -1;
+        }
+        this.table_trans.setValueAt(destino, origen, simbolo + 1);
+        this.rbbefinal.setSelected(false);
+        this.cbxeorigen.setSelectedIndex(0);
+        this.cbxsimbolo.setSelectedIndex(0);
+        this.cbxedestino.setSelectedIndex(0);
+
+    }//GEN-LAST:event_jButton3ActionPerformed
     public Boolean pretarate() {
         if (this.txt_num_estado.getText().matches("[1-9][0-9]*") && this.txt_num_simbolo.getText().matches("[1-9][0-9]*")) {
             if (this.txt_num_estado.getText().length() != 0 && this.txt_num_simbolo.getText().length() != 0) {
@@ -253,12 +374,18 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
      * @param num_simbolo
      */
     public void prTable(int num_estado, int num_simbolo) {
+        this.cbxeorigen.setModel(new DefaultComboBoxModel());
+        this.cbxedestino.setModel(new DefaultComboBoxModel());
+        this.cbxsimbolo.setModel(new DefaultComboBoxModel());
         num_simbolo = num_simbolo + 2;
         Object[][] ob = new Object[num_estado][num_simbolo];
         s = new String[num_simbolo];
         boolean[] canEdit = new boolean[num_simbolo];
         Boolean t = true;
+        int h = 1000;
+
         for (int i = 0; i < num_estado; i++) {
+            h = 1000;
             for (int j = 0; j < num_simbolo; j++) {
                 if (t) {
                     if (j == 0) {
@@ -266,6 +393,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                         s[j] = "Estados\\Simbolo";
                     } else if (j < num_simbolo - 1) {
                         s[j] = "S" + (j - 1);
+                        this.cbxsimbolo.addItem("S" + (j - 1));
 
                         canEdit[j] = true;
                     } else {
@@ -275,9 +403,13 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                 }
                 if (j == 0) {
                     ob[i][j] = "q" + i;
+                    this.cbxeorigen.addItem("q" + i);
+                    this.cbxedestino.addItem("q" + i);
                 } else {
-                    ob[i][j] = null;
+                    ob[i][j] = h;
+                    h++;
                 }
+
             }
             t = false;
         }
@@ -290,17 +422,33 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
             }
         }
         );
+        if (num_simbolo > 11) {
+            this.table_trans.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
+        this.table_trans.getTableHeader().setReorderingAllowed(false);
+        AutoCompletion.enable(cbxsimbolo);
+        AutoCompletion.enable(cbxedestino);
+        AutoCompletion.enable(cbxeorigen);
+
     }
 
     public void msg(String message) {
         JOptionPane.showMessageDialog(this.getRootPane(), message);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbxedestino;
+    private javax.swing.JComboBox cbxeorigen;
+    private javax.swing.JComboBox cbxsimbolo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rbbefinal;
     private javax.swing.JTable table_trans;
     private javax.swing.JTextField txt_num_estado;
     private javax.swing.JTextField txt_num_simbolo;
