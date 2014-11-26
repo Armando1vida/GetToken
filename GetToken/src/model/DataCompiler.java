@@ -60,9 +60,16 @@ public class DataCompiler {
      */
     public int valueofCad(String cad) {
         for (int i = 0; i < this.getLista().size() - 1; i++) {
-            if (cad.matches(this.getLista().get(i).getMatch())) {
-                return this.getLista().get(i).getValor();
+            if (this.getLista().get(i).getIsPattern()) {
+                if (cad.matches(this.getLista().get(i).getMatch())) {
+                    return this.getLista().get(i).getValor();
+                }
+            } else {
+                if (cad.equals(this.getLista().get(i).getMatch())) {
+                    return this.getLista().get(i).getValor();
+                }
             }
+
         }
         return this.getLista().get(this.getLista().size() - 1).getValor(); // si no coincide retorn ]a valor de otros
     }

@@ -145,28 +145,39 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
     }
 
     public void loadTable(String[] data) {
-        Object[][] h = new Object[data.length - 2][2];
+        Object[][] h = new Object[data.length - 2][3];
         for (int i = 0; i < h.length; i++) {
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < 3; j++) {
                 if (j == 0) {
                     h[i][j] = data[i + 1];
+                } else if (j == 2) {
+                    h[i][j] = true;
+
                 } else {
                     h[i][j] = null;
+
                 }
             }
         }
         this.tableSetUp.setModel(new javax.swing.table.DefaultTableModel(
                 h,
-                new String[]{
-                    "Simbolos", "Macht"
+                new Object[]{
+                    "Simbolos", "Macht", " Es Pattern"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, true
+                false, true, true
+            };
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
+            }
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
             }
         }
         );
@@ -186,14 +197,16 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
     public Boolean getDataTable(JTable table) {
         int y = 0;
         for (int i = 0; i < table.getRowCount(); i++) {
-            lista.add(new ConstansToken(table.getValueAt(i, 0).toString(), i, table.getValueAt(i, 1).toString()));
+            System.out.println(table.getValueAt(i, 2));
+            lista.add(new ConstansToken(table.getValueAt(i, 0).toString(), i, table.getValueAt(i, 1).toString(), (Boolean) table.getValueAt(i, 2)));
             y = i;
         }
-        lista.add(new ConstansToken(this.s[y + 2], y + 1, ""));
+        lista.add(new ConstansToken(this.s[y + 2], y + 1, "", false));
 
         return true;
     }
-  public void msg(String message) {
+
+    public void msg(String message) {
         JOptionPane.showMessageDialog(this.getRootPane(), message);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

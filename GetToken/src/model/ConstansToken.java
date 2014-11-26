@@ -14,6 +14,7 @@ public class ConstansToken {
     private String simbolo;
     private Integer valor;
     private String match;
+    private Boolean isPattern;
 
     public ConstansToken() {
     }
@@ -22,6 +23,13 @@ public class ConstansToken {
         this.simbolo = simbolo;
         this.valor = valor;
         this.match = match;
+    }
+
+    public ConstansToken(String simbolo, Integer valor, String match, Boolean isPattern) {
+        this.simbolo = simbolo;
+        this.valor = valor;
+        this.match = match;
+        this.isPattern = isPattern;
     }
 
     /**
@@ -64,6 +72,20 @@ public class ConstansToken {
      */
     public void setMatch(String macth) {
         this.match = macth;
+    }
+
+    /**
+     * @return the isPattern
+     */
+    public Boolean getIsPattern() {
+        return isPattern;
+    }
+
+    /**
+     * @param isPattern the isPattern to set
+     */
+    public void setIsPattern(Boolean isPattern) {
+        this.isPattern = isPattern;
     }
 
 }
