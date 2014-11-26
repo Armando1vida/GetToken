@@ -162,7 +162,7 @@ public final class frmSetupTrans extends javax.swing.JInternalFrame {
         this.tableSetUp.setModel(new javax.swing.table.DefaultTableModel(
                 h,
                 new Object[]{
-                    "Simbolos", "Macht", " Es Pattern"
+                    "Simbolos", "Macht", "Es Pattern"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
