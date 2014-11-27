@@ -11,6 +11,7 @@ public class Lectura {
     private String matchSring = "[a-zA-ZñÑ]";
     private String matchNum = "[0-9.]";
     private String matchOperacion = "[^0-9|^A-Za-zÑñ]|[\\^]|[^ ]";
+    private String matchSpace = "([\" \" \"\\t\" \"\\n\" \"\\r\"]+ )";
     private Integer begin = 0;
 
     public Lectura() {
@@ -33,7 +34,7 @@ public class Lectura {
      */
     public void setCad(String cad) {
         this.cad = cad;
-        this.begin = 0;
+        this.setBegin((Integer) 0);
     }
 
     /**
@@ -95,9 +96,9 @@ public class Lectura {
     public String getString() {
         String re = "";
         int x = this.getBegin();
-        while (this.getBegin() < this.cad.length() && (this.cad.charAt(x) + "").matches(this.getMatchSring())) {
+        while (this.getBegin() < this.getCad().length() && (this.getCad().charAt(x) + "").matches(this.getMatchSring())) {
 
-            re = re + this.cad.charAt(x++);
+            re = re + this.getCad().charAt(x++);
             this.setBegin(x);
         }
         return re.equals("") ? null : re;
@@ -106,8 +107,8 @@ public class Lectura {
     public String getNumber() {
         String re = "";
         int x = this.getBegin();
-        while (this.getBegin() < this.cad.length() && (this.cad.charAt(x) + "").matches(this.getMatchNum())) {
-            re = re + this.cad.charAt(x++);
+        while (this.getBegin() < this.getCad().length() && (this.getCad().charAt(x) + "").matches(this.getMatchNum())) {
+            re = re + this.getCad().charAt(x++);
             this.setBegin(x);
         }
         return re.equals("") ? null : re;
@@ -116,8 +117,8 @@ public class Lectura {
     public String getSymbol() {
         String re = "";
         int x = this.getBegin();
-        if (x < this.cad.length() && (this.cad.charAt(x) + "").matches(this.getMatchOperacion())) {
-            re = re + this.cad.charAt(x++);
+        if (x < this.getCad().length() && (this.getCad().charAt(x) + "").matches(this.getMatchOperacion())) {
+            re = re + this.getCad().charAt(x++);
             this.setBegin(x);
         }
         return re.equals("") ? null : re;
@@ -132,12 +133,18 @@ public class Lectura {
         if (retorno != null) {
             return retorno;
         }
-        if (this.getBegin() < this.cad.length() && this.cad.charAt(this.getBegin()) == ' ') {
+        if (this.getBegin() < this.getCad().length() && (this.getCad().charAt(this.getBegin()) == ' ' | this.getCad().charAt(this.getBegin()) == '\t' | this.getCad().charAt(this.getBegin()) == '\n')) {
             int d = this.getBegin();
             d = d + 1;
             this.setBegin(d);
             return this.getToken();
         }
+//        if (this.getBegin() < this.getCad().length() && this.getCad().matches(this.getMatchSpace())) {
+//            int d = this.getBegin();
+//            d = d + 1;
+//            this.setBegin(d);
+//            return this.getToken();
+//        }
         retorno = this.getSymbol();
         if (retorno != null) {
             return retorno;
@@ -145,8 +152,22 @@ public class Lectura {
 
         return null;
     }
+
+    /**
+     * @return the matchSpace
+     */
+    public String getMatchSpace() {
+        return matchSpace;
+    }
+
+    /**
+     * @param matchSpace the matchSpace to set
+     */
+    public void setMatchSpace(String matchSpace) {
+        this.matchSpace = matchSpace;
+    }
     /**
      * TODO : hacer que los token cojan las expresiones de las ConstansToken
      */
-    
+
 }

@@ -20,9 +20,9 @@ public class test {
 //////        c.analizadorSintactico();
 //////        String d="^";
 //////        System.out.println(d.matches("\\^"));
-        String d = "q{";
+        String d = "BOOLEAN";
 
-        Boolean dd = d.equalsIgnoreCase("q{");
+        Boolean dd = d.matches("(BOOLEAN|SMALLINT|BIGINT|DATE)");
 //        Boolean dd = d.matches("[+|\\-|*|/]");
         
 //
