@@ -32,6 +32,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         se = new Serialize();
         datacompiler = new DataCompiler();
         llenarCombobox();
+        jsyntaxpane.DefaultSyntaxKit.initKit();
+        txtcad.setContentType("text/sql");
 
     }
 
@@ -48,9 +50,9 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtfilename = new javax.swing.JComboBox();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtcad = new javax.swing.JTextArea();
         txtresult = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtcad = new javax.swing.JEditorPane();
 
         jLabel1.setText("Cadena: ");
 
@@ -65,27 +67,25 @@ public class frmCompilador extends javax.swing.JInternalFrame {
 
         txtfilename.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtcad.setColumns(20);
-        txtcad.setRows(5);
-        jScrollPane2.setViewportView(txtcad);
+        jScrollPane1.setViewportView(txtcad);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfilename, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtfilename, 0, 621, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
-                    .addComponent(txtresult))
+                    .addComponent(txtresult, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
 
@@ -99,8 +99,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtfilename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,13 +113,12 @@ public class frmCompilador extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         if (this.preparate()) {
             datacompiler = se.ReadXml(txtfilename.getSelectedItem().toString());
             this.com = new Compilador(datacompiler, this.txtcad.getText());
             this.com.analzarLexico();
             String h = this.com.analizadorSintactico(new TablaTrans(this.convert(datacompiler.getTableTans())));
-            this.com.MostarToken();
+//            this.com.MostarToken();
             this.txtresult.setText(h);
         } else {
             this.msg("Campos incompletos");
@@ -183,8 +182,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtcad;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JEditorPane txtcad;
     private javax.swing.JComboBox txtfilename;
     private javax.swing.JTextField txtresult;
     // End of variables declaration//GEN-END:variables

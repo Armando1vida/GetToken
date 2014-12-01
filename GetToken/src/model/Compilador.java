@@ -30,13 +30,17 @@ public class Compilador {
         String cad = lectura.getToken();
         int s;
         while (cad != null) {
-            s = this.dt.valueofCadEquals(cad);
-            if (s != 0) {// evaulo si coincide la cadena a nivel de cad.equals("ss")
-                listaToken.add(new Token(cad, s));
-            } else { // evalui cadena a nivel de expresiones regulares
+            cad = cad.trim();
+            if (cad.length() > 0) {
+                s = this.dt.valueofCadEquals(cad);
+                if (s != 0) {// evaulo si coincide la cadena a nivel de cad.equals("ss")
+                    listaToken.add(new Token(cad, s));
+                } else { // evaluo la cadena a nivel de expresiones regulares
 //            System.out.println(cad +"  " +this.dt.valueofCad(cad));
-                listaToken.add(new Token(cad, this.dt.valueofCad(cad)));
+                    listaToken.add(new Token(cad, this.dt.valueofCad(cad)));
+                }
             }
+
             cad = lectura.getToken();
         }
     }
