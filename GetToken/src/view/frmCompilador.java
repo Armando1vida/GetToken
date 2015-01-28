@@ -66,6 +66,11 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         jLabel2.setText("Archivo:");
 
         txtfilename.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtfilename.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfilenameActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(txtcad);
 
@@ -124,6 +129,10 @@ public class frmCompilador extends javax.swing.JInternalFrame {
             this.msg("Campos incompletos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtfilenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfilenameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfilenameActionPerformed
 
     public Boolean preparate() {
         if (this.txtcad.getText().length() != 0 && this.txtfilename.getSelectedItem().toString().length() != 0) {

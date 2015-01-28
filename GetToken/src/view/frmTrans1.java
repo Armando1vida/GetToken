@@ -5,12 +5,17 @@
  */
 package view;
 
+import java.io.File;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.AutoCompletion;
+import model.Compilador;
+import model.DataCompiler;
+import model.Serialize;
+import model.TablaTrans;
 
 /**
  *
@@ -22,12 +27,17 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
     String[] s;
     Object[][] dataTable;
     JDesktopPane jDes;
+    Serialize se;
+    DataCompiler datacompiler;
 
     /**
      * Creates new form frmTrans1
      */
     public frmTrans1(JDesktopPane jDesktopPanel) {
         initComponents();
+        llenarCombobox();
+        se = new Serialize();
+        datacompiler = new DataCompiler();
         modelTable = (DefaultTableModel) this.table_trans.getModel();
 //        this.table_trans.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         this.table_trans.getTableHeader().setReorderingAllowed(false);
@@ -96,6 +106,8 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         cbxedestino = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
         rbbefinal = new javax.swing.JRadioButton();
+        cbxFile = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -177,46 +189,60 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
 
         rbbefinal.setText("Estado Final");
 
+        cbxFile.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton4.setText("Cargar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxeorigen, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxsimbolo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxedestino, 0, 1, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbbefinal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_num_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                                .addComponent(cbxFile, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxeorigen, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxsimbolo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxedestino, 0, 1, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbbefinal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_num_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
-                .addContainerGap(369, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txt_num_estado, txt_num_simbolo});
@@ -235,14 +261,16 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txt_num_simbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(cbxFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
                         .addComponent(cbxedestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3)
-                        .addComponent(rbbefinal))
+                        .addComponent(rbbefinal)
+                        .addComponent(jButton4))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(cbxsimbolo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,7 +278,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(cbxeorigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -297,6 +325,23 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         this.cbxedestino.setSelectedIndex(0);
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if (this.preparate()) {
+            datacompiler = se.ReadXml(cbxFile.getSelectedItem().toString());
+            int[][] tableData = this.convert(datacompiler.getTableTans());
+            imprimir(datacompiler.getTableTans());
+            prTable(tableData.length, tableData[0].length - 1);
+            setValueTable(this.table_trans, tableData);
+
+//            String h = this.com.analizadorSintactico(new TablaTrans(this.convert(datacompiler.getTableTans())));
+//            this.com.MostarToken();
+//            this.txtresult.setText(h);
+        } else {
+            this.msg("Campos incompletos");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     public Boolean pretarate() {
         if (this.txt_num_estado.getText().matches("[1-9][0-9]*") && this.txt_num_simbolo.getText().matches("[1-9][0-9]*")) {
             if (this.txt_num_estado.getText().length() != 0 && this.txt_num_simbolo.getText().length() != 0) {
@@ -307,12 +352,30 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         return false;
     }
 
+    public int[][] convert(Object[][] g) {
+        int[][] gf = new int[g.length][g[0].length];
+        for (int i = 0; i < g.length; i++) {
+            for (int j = 0; j < g[0].length; j++) {
+                gf[i][j] = Integer.parseInt(g[i][j] + "");
+            }
+        }
+        return gf;
+    }
+
     public void imprimirTable(JTable table) {
         for (int i = 0; i < table.getRowCount(); i++) {
             for (int j = 1; j < table.getColumnCount(); j++) {
                 System.out.print(table.getValueAt(i, j) + " ");
             }
             System.out.println("");
+        }
+    }
+
+    public void setValueTable(JTable table, int[][] data) {
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 1; j < data[0].length; j++) {
+                table.setValueAt(data[i][j], i, j);
+            }
         }
     }
 
@@ -350,6 +413,29 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         }
     }
 
+    public void llenarCombobox() {
+        String to = System.getProperty("user.dir"); // recupero el directorio del proyecto
+        String separator = System.getProperty("file.separator"); //recupero el separador ex: Windows= '\' , Linux='/'
+        to = to + separator + "src" + separator + "src" + separator; // concateno la ruta destino
+        File f = new File(to);
+        this.cbxFile.removeAllItems();
+        if (f.exists()) { // Directorio existe 
+            File[] ficheros = f.listFiles();
+            for (int x = 0; x < ficheros.length; x++) {
+                this.cbxFile.addItem(ficheros[x].getName());
+            }
+        } else { //Directorio no existe 
+
+        }
+    }
+
+    public Boolean preparate() {
+        if (this.cbxFile.getSelectedItem().toString().length() != 0) {
+            return true;
+        }
+        return false;
+
+    }
 //    public void im(Object[][] g) {
 //
 //        for (int i = 0; i < g.length; i++) {
@@ -367,11 +453,12 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
 //            System.out.println(n[i]);
 //        }
 //    }
+
     /**
      * Prepara la tabla
      *
-     * @param num_estado
-     * @param num_simbolo
+     * @param num_estado fila
+     * @param num_simbolo columna
      */
     public void prTable(int num_estado, int num_simbolo) {
         this.cbxeorigen.setModel(new DefaultComboBoxModel());
@@ -436,12 +523,14 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this.getRootPane(), message);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbxFile;
     private javax.swing.JComboBox cbxedestino;
     private javax.swing.JComboBox cbxeorigen;
     private javax.swing.JComboBox cbxsimbolo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -453,4 +542,8 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_num_estado;
     private javax.swing.JTextField txt_num_simbolo;
     // End of variables declaration//GEN-END:variables
+
+//    private void imprimir(int[][] tableData) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }
