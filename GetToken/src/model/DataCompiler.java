@@ -76,7 +76,6 @@ public class DataCompiler {
 
     /**
      * Devulve el valor del match segun la cadena
-     *
      * @param cad
      * @return Integer valor del match
      */

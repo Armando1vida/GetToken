@@ -54,6 +54,8 @@ public class frmCompilador extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtcad = new javax.swing.JEditorPane();
 
+        setClosable(true);
+
         jLabel1.setText("Cadena: ");
 
         jButton1.setText("OK");

@@ -374,7 +374,7 @@ public class frmTrans1 extends javax.swing.JInternalFrame {
     public void setValueTable(JTable table, int[][] data) {
         for (int i = 0; i < data.length; i++) {
             for (int j = 1; j < data[0].length; j++) {
-                table.setValueAt(data[i][j], i, j);
+                table.setValueAt(data[i][j-1], i, j);
             }
         }
     }

@@ -149,7 +149,6 @@ public class Lectura {
         if (retorno != null) {
             return retorno;
         }
-
         return null;
     }
 
