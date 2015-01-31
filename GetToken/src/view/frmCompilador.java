@@ -174,7 +174,7 @@ public class frmCompilador extends javax.swing.JInternalFrame {
             this.com = new Compilador(datacompiler, this.txtcad.getText());
             this.com.analzarLexico();
             String h = this.com.analizadorSintactico(new TablaTrans(this.convert(datacompiler.getTableTans())));
-            this.com.MostarToken();
+//            this.com.MostarToken();
             this.txtresult.setText(h);
             this.txtRecorrido.setText(this.com.viewToken());
             this.txtErrores.setText(this.com.viewErros(new TablaTrans(this.convert(datacompiler.getTableTans()))));

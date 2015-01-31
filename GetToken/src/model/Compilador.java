@@ -55,8 +55,7 @@ public class Compilador {
         int estado_actual = 0;
         for (int i = 0; i < listaToken.size(); i++) {
             estado_actual = Math.abs(estado_actual); // estado anterior
-//            System.out.println(listaToken.get(i).getValor_token());
-            System.out.println(listaToken.get(i).getLexema());
+//            System.out.println(listaToken.get(i).getLexema());
 
             estado_actual = tabla.getEstadoSiguiente(estado_actual, listaToken.get(i).getValor_token());// estado siguiente
             if (estado_actual >= 1000) {
