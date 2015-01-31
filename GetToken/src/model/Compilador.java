@@ -54,10 +54,11 @@ public class Compilador {
     public String analizadorSintactico(TablaTrans tabla) {
         int estado_actual = 0;
         for (int i = 0; i < listaToken.size(); i++) {
-            System.out.println(estado_actual);
-            estado_actual = Math.abs(estado_actual);
+            estado_actual = Math.abs(estado_actual); // estado anterior
+//            System.out.println(listaToken.get(i).getValor_token());
+            System.out.println(listaToken.get(i).getLexema());
 
-            estado_actual = tabla.getEstadoSiguiente(estado_actual, listaToken.get(i).getValor_token());
+            estado_actual = tabla.getEstadoSiguiente(estado_actual, listaToken.get(i).getValor_token());// estado siguiente
             if (estado_actual >= 1000) {
                 return "Error";
             }
@@ -67,14 +68,46 @@ public class Compilador {
 
         }
         if (estado_actual >= 0 && estado_actual < 1000) { // controla esto: 3+
-            return "Error Sintactico";
+            return "Error Sintáctico";
         }
         return "";
     }
 
+    public String viewErros(TablaTrans tabla) {
+        String result = "";
+        int estado_actual = 0;
+        for (int i = 0; i < listaToken.size(); i++) {
+            estado_actual = Math.abs(estado_actual); // estado anterior
+            estado_actual = tabla.getEstadoSiguiente(estado_actual, listaToken.get(i).getValor_token());// estado siguiente
+            if (estado_actual >= 1000) {// cuando hay error
+               return listaToken.get(i).getLexema() + "\n";
+            }
+            if (estado_actual < 0 && i == listaToken.size() - 1) { // si el recorrido se efectuo con exito
+                return result;
+            }
+        }
+        if (estado_actual >= 0 && estado_actual < 1000) { // controla esto: 3+
+          return "Error Sintáctico" + "\n";
+
+        }
+        return result;
+    }
+
     public void MostarToken() {
         for (Token token : this.listaToken) {
-            System.out.println(token.getLexema() + " => " + token.getValor_token());
+//            System.out.println(token.getLexema() + " => " + token.getValor_token());
         }
+    }
+
+    /**
+     *
+     * @return String
+     */
+    public String viewToken() {
+        String s = "";
+        for (Token token : this.listaToken) {
+            s = s + token.getLexema() + " => " + dt.getLista().get(token.getValor_token()).getMatch() + "\n";
+        }
+        return s;
     }
 }
