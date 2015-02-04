@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_11" class="java.beans.XMLDecoder">
+ <object class="model.DataCompiler">
+  <void property="lista">
+   <object class="java.util.ArrayList">
+    <void method="add">
+     <object class="model.ConstansToken">
+      <void property="isPattern">
+       <boolean>true</boolean>
+      </void>
+      <void property="match">
+       <string>[0-9]+</string>
+      </void>
+      <void property="simbolo">
+       <string>S0</string>
+      </void>
+      <void property="valor">
+       <int>0</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.ConstansToken">
+      <void property="isPattern">
+       <boolean>false</boolean>
+      </void>
+      <void property="match">
+       <string>+</string>
+      </void>
+      <void property="simbolo">
+       <string>S1</string>
+      </void>
+      <void property="valor">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="model.ConstansToken">
+      <void property="isPattern">
+       <boolean>false</boolean>
+      </void>
+      <void property="match">
+       <string></string>
+      </void>
+      <void property="simbolo">
+       <string>Otros</string>
+      </void>
+      <void property="valor">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="tableTans">
+   <array class="[Ljava.lang.Object;" length="4">
+    <void index="0">
+     <array class="java.lang.Object" length="3">
+      <void index="0">
+       <string>1</string>
+      </void>
+      <void index="1">
+       <int>1001</int>
+      </void>
+      <void index="2">
+       <int>1002</int>
+      </void>
+     </array>
+    </void>
+    <void index="1">
+     <array class="java.lang.Object" length="3">
+      <void index="0">
+       <int>1000</int>
+      </void>
+      <void index="1">
+       <int>2</int>
+      </void>
+      <void index="2">
+       <int>1002</int>
+      </void>
+     </array>
+    </void>
+    <void index="2">
+     <array class="java.lang.Object" length="3">
+      <void index="0">
+       <int>-3</int>
+      </void>
+      <void index="1">
+       <int>1001</int>
+      </void>
+      <void index="2">
+       <int>1002</int>
+      </void>
+     </array>
+    </void>
+    <void index="3">
+     <array class="java.lang.Object" length="3">
+      <void index="0">
+       <int>1000</int>
+      </void>
+      <void index="1">
+       <int>2</int>
+      </void>
+      <void index="2">
+       <int>1002</int>
+      </void>
+     </array>
+    </void>
+   </array>
+  </void>
+ </object>
+</java>
